@@ -784,12 +784,12 @@ function shareWA(mode) {
 function resetForm() {
   ['nama','phone','phone2','kota','pd'].forEach(id => document.getElementById(id).value = '');
   ['platinum','silver','gold','bronze'].forEach(t => document.getElementById('opt-' + t).classList.remove('selected'));
-  ['ranjang','kursi','tidak'].forEach(t => {
-    /*const opt = document.getElementById('alat-' + t);*/
+  /*['ranjang','kursi','tidak'].forEach(t => {
+    const opt = document.getElementById('alat-' + t);
     const inp = document.getElementById('r-' + t);
     if (opt) opt.classList.remove('selected');
     if (inp) inp.checked = false;
-  });
+  });*/
   selectedTicket = null;
   /*selectedAlat   = null;*/
   registeredData = null;
