@@ -613,7 +613,7 @@ function selectTicket(type) {
   });
 }
 
-function selectAlat(type) {
+/*function selectAlat(type) {
   selectedAlat = type;
   ['ranjang','kursi','tidak'].forEach(t => {
     const opt = document.getElementById('alat-' + t);
@@ -621,7 +621,7 @@ function selectAlat(type) {
     if (opt) opt.classList.toggle('selected', t === type);
     if (inp) inp.checked = (t === type);
   });
-}
+}*/
 
 // ============================================================
 //  SUBMIT FORM
@@ -647,14 +647,14 @@ async function submitForm() {
   document.getElementById('phone2').style.borderColor = '';
   if (!kota)           { showAlert('form-alert', 'Kota asal wajib diisi.', 'error'); return; }
   if (!selectedTicket) { showAlert('form-alert', 'Pilih kategori tiket terlebih dahulu.', 'error'); return; }
-  if (!selectedAlat)   { showAlert('form-alert', 'Pilih pilihan alat bantu terlebih dahulu.', 'error'); return; }
+  /*if (!selectedAlat)   { showAlert('form-alert', 'Pilih pilihan alat bantu terlebih dahulu.', 'error'); return; }*/
 
   const btn = document.getElementById('submit-btn');
   btn.disabled = true; btn.textContent = '⏳ Mendaftarkan...';
   clearAlert('form-alert');
 
   try {
-    const url  = SCRIPT_URL + '?' + new URLSearchParams({ action: 'register', nama, phone, kota, pd, tiket: selectedTicket, alat: selectedAlat });
+    const url  = SCRIPT_URL + '?' + new URLSearchParams({ action: 'register', nama, phone, kota, pd, tiket: selectedTicket, /*alat: selectedAlat*/ });
     const res  = await fetch(url);
     const data = await res.json();
 
@@ -791,7 +791,7 @@ function resetForm() {
     if (inp) inp.checked = false;
   });
   selectedTicket = null;
-  selectedAlat   = null;
+  /*selectedAlat   = null;*/
   registeredData = null;
   document.getElementById('payment-card').style.display  = 'none';
   document.getElementById('inline-result').style.display = 'none';
