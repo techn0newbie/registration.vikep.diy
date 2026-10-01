@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pendaftaran KRK Penyembuhan 2026</title>
+<title>Registrasi Worship Night Rm Eko 2026</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://unpkg.com/@zxing/library@0.19.1/umd/index.min.js"></script>
 <style>
@@ -134,9 +134,10 @@
   .ir-body { padding: 1.25rem; text-align: center; }
   .pid-badge { display: inline-block; background: var(--green-light); color: var(--green-dark); font-family: monospace; font-size: 1.3rem; font-weight: 800; letter-spacing: 2px; padding: 0.4rem 1.1rem; border-radius: 10px; border: 1.5px solid #9FE1CB; margin-bottom: 1rem; }
   .ticket-badge { display: inline-block; padding: 0.2rem 0.9rem; border-radius: 99px; font-size: 0.78rem; font-weight: 700; margin-bottom: 1rem; margin-left: 0.4rem; }
-  .badge-umum  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-  .badge-vip   { background: #fff8e1; color: #f57f17; border: 1px solid #ffcc02; }
-  .badge-vvip  { background: #fce4ec; color: #880e4f; border: 1px solid #f48fb1; }
+  .badge-platinum  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+  .badge-gold   { background: #fff8e1; color: #f57f17; border: 1px solid #ffcc02; }
+  .badge-silver  { background: #fce4ec; color: #880e4f; border: 1px solid #f48fb1; }
+  .badge-bronze   { background: #fff8e1; color: #f57f17; border: 1px solid #ffcc02; }
   .qr-center { display: flex; justify-content: center; margin-bottom: 0.75rem; }
   .qr-center canvas, .qr-center img { border-radius: 10px; border: 5px solid var(--green-light); }
   .res-name { font-size: 1rem; font-weight: 700; color: var(--text); }
@@ -232,16 +233,20 @@
   <div class="quota-bar-wrap">
     <div class="quota-row">
       <div class="quota-item">
-        <div class="quota-label">Umum <span id="quota-umum-count">...</span></div>
-        <div class="quota-bar"><div class="quota-fill" id="quota-fill-umum" style="width:0%"></div></div>
+        <div class="quota-label">Platinum <span id="quota-platinum-count">...</span></div>
+        <div class="quota-bar"><div class="quota-fill" id="quota-fill-platinum" style="width:0%"></div></div>
       </div>
       <div class="quota-item">
-        <div class="quota-label">VIP <span id="quota-vip-count">...</span></div>
-        <div class="quota-bar"><div class="quota-fill" id="quota-fill-vip" style="width:0%;background:#FFD966"></div></div>
+        <div class="quota-label">Gold <span id="quota-gold-count">...</span></div>
+        <div class="quota-bar"><div class="quota-fill" id="quota-fill-gold" style="width:0%;background:#FFD966"></div></div>
       </div>
       <div class="quota-item">
-        <div class="quota-label">VVIP <span id="quota-vvip-count">...</span></div>
-        <div class="quota-bar"><div class="quota-fill" id="quota-fill-vvip" style="width:0%;background:#F4B8D1"></div></div>
+        <div class="quota-label">Silver <span id="quota-silver-count">...</span></div>
+        <div class="quota-bar"><div class="quota-fill" id="quota-fill-silver" style="width:0%;background:#F4B8D1"></div></div>
+      </div>
+      <div class="quota-item">
+        <div class="quota-label">Bronze <span id="quota-bronze-count">...</span></div>
+        <div class="quota-bar"><div class="quota-fill" id="quota-fill-bronze" style="width:0%;background:#F4B8D1"></div></div>
       </div>
     </div>
   </div>
@@ -280,26 +285,33 @@
       <div class="field">
         <label>Kategori Tiket *</label>
         <div class="ticket-options">
-          <div class="ticket-opt" id="opt-umum" onclick="selectTicket('umum')">
+          <div class="ticket-opt" id="opt-platinum" onclick="selectTicket('platinum')">
             <div>
-              <div class="ticket-name">Umum</div>
-              <div class="ticket-desc" id="desc-umum">Sisa kuota: ...</div>
+              <div class="ticket-name">Platinum</div>
+              <div class="ticket-desc" id="desc-platinum">Sisa kuota: ...</div>
             </div>
-            <div class="ticket-price">Rp 30.000</div>
+            <div class="ticket-price">IDR 350.000</div>
           </div>
-          <div class="ticket-opt" id="opt-vip" onclick="selectTicket('vip')">
+          <div class="ticket-opt" id="opt-gold" onclick="selectTicket('gold')">
             <div>
-              <div class="ticket-name">VIP</div>
-              <div class="ticket-desc" id="desc-vip">Sisa kuota: ...</div>
+              <div class="ticket-name">Gold</div>
+              <div class="ticket-desc" id="desc-gold">Sisa kuota: ...</div>
             </div>
-            <div class="ticket-price">Rp 250.000</div>
+            <div class="ticket-price">IDR 250.000</div>
           </div>
-          <div class="ticket-opt" id="opt-vvip" onclick="selectTicket('vvip')">
+          <div class="ticket-opt" id="opt-silver" onclick="selectTicket('silver')">
             <div>
-              <div class="ticket-name">VVIP</div>
-              <div class="ticket-desc" id="desc-vvip">Sisa kuota: ...</div>
+              <div class="ticket-name">Silver</div>
+              <div class="ticket-desc" id="desc-silver">Sisa kuota: ...</div>
             </div>
-            <div class="ticket-price">Rp 500.000</div>
+            <div class="ticket-price">IDR 150.000</div>
+          </div>
+          <div class="ticket-opt" id="opt-bronze" onclick="selectTicket('bronze')">
+            <div>
+              <div class="ticket-name">Bronze</div>
+              <div class="ticket-desc" id="desc-bronze">Sisa kuota: ...</div>
+            </div>
+            <div class="ticket-price">IDR 50.000</div>
           </div>
         </div>
       </div>
@@ -519,14 +531,15 @@
 <script>
 const SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycbxcGWhDuvfZxIj8ulQQoJcubfb7jP9Mv-LRLsBnBl0AkdPQuAo85fvHA5FkYCesFxS_lA/exec';
 const PANITIA_WA  = '628993553558';
-const MAX_QUOTA   = 1000;
+const MAX_QUOTA   = 738;
 const SCANNER_PW  = '778899';
 const MAX_TRIES   = 5;
 
 const TIKET = {
-  umum: { label: 'Umum',  nominal: 30000,  display: 'Rp 30.000'  },
-  vip:  { label: 'VIP',   nominal: 250000, display: 'Rp 250.000' },
-  vvip: { label: 'VVIP',  nominal: 500000, display: 'Rp 500.000' }
+  platinum: { label: 'Platinum',  nominal: 350000,  display: 'IDR 350.000'  },
+  gold:  { label: 'Gold',   nominal: 250000, display: 'IDR 250.000' },
+  silver: { label: 'Silver',  nominal: 150000, display: 'IDR 150.000' },
+  bronze: { label: 'Bronze',  nominal: 50000, display: 'IDR 50.000' }
 };
 
 // ── state ──
@@ -540,7 +553,7 @@ let pwTries         = 0;
 // ============================================================
 //  QUOTA
 // ============================================================
-const QUOTA = { umum: 900, vip: 100, vvip: 50 };
+const QUOTA = { platinum: 111, gold: 122, silver: 143, bronze: 362 };
 
 async function loadQuota() {
   try {
@@ -548,12 +561,13 @@ async function loadQuota() {
     const data = await res.json();
 
     const counts = {
-      umum:  data.umum  !== undefined ? data.umum  : 0,
-      vip:   data.vip   !== undefined ? data.vip   : 0,
-      vvip:  data.vvip  !== undefined ? data.vvip  : 0
+      platinum:  data.platinum  !== undefined ? data.platinum  : 0,
+      gold:   data.gold   !== undefined ? data.gold   : 0,
+      silver:  data.silver  !== undefined ? data.silver  : 0,
+      bronze:  data.bronze  !== undefined ? data.bronze  : 0
     };
 
-    ['umum','vip','vvip'].forEach(t => {
+    ['platinum','gold','silver','bronze'].forEach(t => {
       const cnt  = counts[t];
       const max  = QUOTA[t];
       const sisa = max - cnt;
@@ -577,7 +591,7 @@ async function loadQuota() {
     });
 
   } catch(e) {
-    ['umum','vip','vvip'].forEach(t => {
+    ['platinum','gold','silver','bronze'].forEach(t => {
       const label = document.getElementById('quota-' + t + '-count');
       const desc  = document.getElementById('desc-' + t);
       const opt   = document.getElementById('opt-' + t);
@@ -593,7 +607,7 @@ async function loadQuota() {
 // ============================================================
 function selectTicket(type) {
   selectedTicket = type;
-  ['umum','vip','vvip'].forEach(t => {
+  ['platinum','gold','silver','bronze'].forEach(t => {
     const opt = document.getElementById('opt-' + t);
     if (opt) opt.classList.toggle('selected', t === type);
   });
@@ -729,9 +743,9 @@ function renderQR(elId, data) {
 }
 
 function ticketBadgeHTML(tiket) {
-  const cls = { umum: 'badge-umum', vip: 'badge-vip', vvip: 'badge-vvip' };
-  const lbl = { umum: 'Umum', vip: 'VIP', vvip: 'VVIP' };
-  return '<span class="ticket-badge ' + (cls[tiket]||'badge-umum') + '">' + (lbl[tiket]||tiket) + '</span>';
+  const cls = { platinum: 'badge-platinum', gold: 'badge-gold', silver: 'badge-silver', bronze: 'badge-bronze' };
+  const lbl = { platinum: 'Platinum', gold: 'Gold', silver: 'Silver', bronze: 'Bronze' };
+  return '<span class="ticket-badge ' + (cls[tiket]||'badge-platinum') + '">' + (lbl[tiket]||tiket) + '</span>';
 }
 
 // ============================================================
@@ -769,7 +783,7 @@ function shareWA(mode) {
 // ============================================================
 function resetForm() {
   ['nama','phone','phone2','kota','pd'].forEach(id => document.getElementById(id).value = '');
-  ['umum','vip','vvip'].forEach(t => document.getElementById('opt-' + t).classList.remove('selected'));
+  ['platinum','silver','gold','bronze'].forEach(t => document.getElementById('opt-' + t).classList.remove('selected'));
   ['ranjang','kursi','tidak'].forEach(t => {
     const opt = document.getElementById('alat-' + t);
     const inp = document.getElementById('r-' + t);
