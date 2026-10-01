@@ -525,7 +525,7 @@
     </div>
   </div>
 
-  <div class="footer">Sistem Pendaftaran KRK Penyembuhan 2026 • Data tersimpan di Google Sheets</div>
+  <div class="footer">Sistem Registrasi Kevikepan DIY 2026 • Data tersimpan di Google Sheets</div>
 </div>
 
 <script>
@@ -699,7 +699,7 @@ function sendPaymentWA() {
   const d = registeredData;
   const t = TIKET[d.tiket] || TIKET.umum;
   const msg =
-    '🙏 *Bukti Pembayaran KRK Penyembuhan 2026*\n\n' +
+    '🙏 *Bukti Pembayaran Worship Night 2026*\n\n' +
     '🪪 *ID Registrasi:* `' + d.id + '`\n' +
     '👤 *Nama:* ' + d.nama + '\n' +
     '📱 *No HP:* ' + d.phone + '\n' +
@@ -719,7 +719,7 @@ function sendReminderWA() {
   const d = lookupData;
   const t = TIKET[d.tiket] || TIKET.umum;
   const msg =
-    '🙏 *Konfirmasi Pembayaran KRK Penyembuhan 2026*\n\n' +
+    '🙏 *Konfirmasi Pembayaran Worship Night 2026*\n\n' +
     'Saya ingin menanyakan status pembayaran saya:\n\n' +
     '🪪 *ID Registrasi:* `' + d.id + '`\n' +
     '👤 *Nama:* ' + d.nama + '\n' +
@@ -765,14 +765,14 @@ function shareWA(mode) {
   else                               wa = '62' + phoneStr;
 
   const msg =
-    '✅ *QR Code KRK Penyembuhan 2026*\n\n' +
+    '✅ *QR Code Worship Night 2026*\n\n' +
     '🪪 *ID Peserta:* `' + id + '`\n' +
     '👤 *Nama:* ' + d.nama + '\n' +
     '🎫 *Kategori:* ' + t.label + '\n' +
     (d.pd ? '🙏 *PD:* ' + d.pd + '\n' : '') +
     '📱 *No HP:* ' + d.phone + '\n\n' +
     '📌 Buka link berikut untuk menampilkan QR Code Anda:\n' +
-    'https://techn0newbie.github.io/registration.krk.domus/?id=' + id + '\n\n' +
+    'https://techn0newbie.github.io/registration.vikep.diy/?id=' + id + '\n\n' +
     'Tunjukkan QR Code tersebut saat registrasi hari H. GBU! 🙏';
 
   window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(msg), '_blank');
@@ -901,14 +901,14 @@ function shareWAItem(idx) {
   else if (phoneStr.startsWith('0')) wa = '62' + phoneStr.slice(1);
   else                               wa = '62' + phoneStr;
   const msg =
-    '✅ *QR Code KRK Penyembuhan 2026*\n\n' +
+    '✅ *QR Code Worship Night 2026*\n\n' +
     '🪪 *ID Peserta:* `' + id + '`\n' +
     '👤 *Nama:* ' + r.nama + '\n' +
     '🎫 *Kategori:* ' + t.label + '\n' +
     (r.pd && r.pd !== '-' ? '🙏 *PD:* ' + r.pd + '\n' : '') +
     '📱 *No HP:* ' + r.phone + '\n\n' +
     '📌 Buka link berikut untuk menampilkan QR Code Anda:\n' +
-    'https://techn0newbie.github.io/registration.krk.domus/?id=' + id + '\n\n' +
+    'https://techn0newbie.github.io/registration.vikep.diy/?id=' + id + '\n\n' +
     'Tunjukkan QR Code tersebut saat registrasi hari H. GBU! 🙏';
   window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(msg), '_blank');
 }
@@ -984,7 +984,7 @@ function sendVerifiedWA() {
     '🎫 *Kategori:* ' + t.label + '\n' +
     '💰 *Nominal:* ' + t.display + '\n\n' +
     '📌 Silakan buka link berikut untuk menampilkan QR Code Anda:\n' +
-    'https://techn0newbie.github.io/registration.krk.domus/?id=' + id + '\n\n' +
+    'https://techn0newbie.github.io/registration.vikep.diy/?id=' + id + '\n\n' +
     'Tunjukkan QR Code tersebut saat registrasi pada hari H.\n' +
     'Sampai jumpa, GBU! 🙏';
 
