@@ -135,6 +135,7 @@
   .ir-body { padding: 1.25rem; text-align: center; }
   .pid-badge { display: inline-block; background: var(--green-light); color: var(--green-dark); font-family: monospace; font-size: 1.3rem; font-weight: 800; letter-spacing: 2px; padding: 0.4rem 1.1rem; border-radius: 10px; border: 1.5px solid #9FE1CB; margin-bottom: 1rem; }
   .ticket-badge { display: inline-block; padding: 0.2rem 0.9rem; border-radius: 99px; font-size: 0.78rem; font-weight: 700; margin-bottom: 1rem; margin-left: 0.4rem; }
+  .badge-diamond  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
   .badge-platinum  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
   .badge-gold   { background: #fff8e1; color: #f57f17; border: 1px solid #ffcc02; }
   .badge-silver  { background: #fce4ec; color: #880e4f; border: 1px solid #f48fb1; }
@@ -233,6 +234,10 @@
   <p>Malam Pujian bersama Rm Eko Wahyu • 4 November 2026 • Yogyakarta</p>
   <div class="quota-bar-wrap">
     <div class="quota-row">
+     <div class="quota-item">
+        <div class="quota-label">Diamond <span id="quota-diamond-count">...</span></div>
+        <div class="quota-bar"><div class="quota-fill" id="quota-fill-diamond" style="width:0%"></div></div>
+      </div>
       <div class="quota-item">
         <div class="quota-label">Platinum <span id="quota-platinum-count">...</span></div>
         <div class="quota-bar"><div class="quota-fill" id="quota-fill-platinum" style="width:0%"></div></div>
@@ -286,6 +291,13 @@
       <div class="field">
         <label>Kategori Tiket *</label>
         <div class="ticket-options">
+         <div class="ticket-opt" id="diamond" onclick="selectTicket('diamond')">
+            <div>
+              <div class="ticket-name">Diamond</div>
+              <div class="ticket-desc" id="desc-diamond">Sisa kuota: ...</div>
+            </div>
+            <div class="ticket-price">IDR 500.000</div>
+          </div>
           <div class="ticket-opt" id="opt-platinum" onclick="selectTicket('platinum')">
             <div>
               <div class="ticket-name">Platinum</div>
@@ -535,11 +547,12 @@
 <script>
 const SCRIPT_URL  = 'https://script.google.com/macros/s/AKfycby8u8w0e3GzGp5qvoOvSbQu0CnunafIu2Kaag-IKsUD4NHXlilZ-ExOxmwBw8K6rvTuyQ/exec';
 const PANITIA_WA  = '6282342968231';
-const MAX_QUOTA   = 1011;
+const MAX_QUOTA   = 600;
 const SCANNER_PW  = '778899';
 const MAX_TRIES   = 5;
 
 const TIKET = {
+  diamond: { label: 'Diamond',  nominal: 500000,  display: 'IDR 500.000'  },
   platinum: { label: 'Platinum',  nominal: 350000,  display: 'IDR 350.000'  },
   gold:  { label: 'Gold',   nominal: 250000, display: 'IDR 250.000' },
   silver: { label: 'Silver',  nominal: 150000, display: 'IDR 150.000' },
@@ -557,7 +570,7 @@ let pwTries         = 0;
 // ============================================================
 //  QUOTA
 // ============================================================
-const QUOTA = { platinum: 96, gold: 122, silver: 143, bronze: 650 };
+const QUOTA = { diamond: 25, platinum: 125, gold: 125, silver: 125, bronze: 200 };
 
 async function loadQuota() {
   try {
@@ -565,13 +578,14 @@ async function loadQuota() {
     const data = await res.json();
 
     const counts = {
+      diamond:  data.diamond  !== undefined ? data.diamond  : 0,
       platinum:  data.platinum  !== undefined ? data.platinum  : 0,
       gold:   data.gold   !== undefined ? data.gold   : 0,
       silver:  data.silver  !== undefined ? data.silver  : 0,
       bronze:  data.bronze  !== undefined ? data.bronze  : 0
     };
 
-    ['platinum','gold','silver','bronze'].forEach(t => {
+    ['diamond','platinum','gold','silver','bronze'].forEach(t => {
       const cnt  = counts[t];
       const max  = QUOTA[t];
       const sisa = max - cnt;
@@ -595,7 +609,7 @@ async function loadQuota() {
     });
 
   } catch(e) {
-    ['platinum','gold','silver','bronze'].forEach(t => {
+    ['diamond','platinum','gold','silver','bronze'].forEach(t => {
       const label = document.getElementById('quota-' + t + '-count');
       const desc  = document.getElementById('desc-' + t);
       const opt   = document.getElementById('opt-' + t);
@@ -703,7 +717,7 @@ function sendPaymentWA() {
   const d = registeredData;
   const t = TIKET[d.tiket] || TIKET.platinum;
   const msg =
-    '🙏 *Bukti Pembayaran Worship Night 2026*\n\n' +
+    '🙏 *Bukti Pembayaran Malam Pujian bersama Rm Eko 2026*\n\n' +
     '🪪 *ID Registrasi:* `' + d.id + '`\n' +
     '👤 *Nama:* ' + d.nama + '\n' +
     '📱 *No HP:* ' + d.phone + '\n' +
@@ -723,7 +737,7 @@ function sendReminderWA() {
   const d = lookupData;
   const t = TIKET[d.tiket] || TIKET.platinum;
   const msg =
-    '🙏 *Konfirmasi Pembayaran Worship Night 2026*\n\n' +
+    '🙏 *Konfirmasi Pembayaran Malam Pujian bersama Rm Eko 2026*\n\n' +
     'Saya ingin menanyakan status pembayaran saya:\n\n' +
     '🪪 *ID Registrasi:* `' + d.id + '`\n' +
     '👤 *Nama:* ' + d.nama + '\n' +
@@ -747,8 +761,8 @@ function renderQR(elId, data) {
 }
 
 function ticketBadgeHTML(tiket) {
-  const cls = { platinum: 'badge-platinum', gold: 'badge-gold', silver: 'badge-silver', bronze: 'badge-bronze' };
-  const lbl = { platinum: 'Platinum', gold: 'Gold', silver: 'Silver', bronze: 'Bronze' };
+  const cls = { platinum: 'badge-platinum', gold: 'badge-gold', silver: 'badge-silver', bronze: 'badge-bronze', diamond: 'badge-diamond' };
+  const lbl = { diamond: 'Diamond', platinum: 'Platinum', gold: 'Gold', silver: 'Silver', bronze: 'Bronze' };
   return '<span class="ticket-badge ' + (cls[tiket]||'badge-platinum') + '">' + (lbl[tiket]||tiket) + '</span>';
 }
 
@@ -769,7 +783,7 @@ function shareWA(mode) {
   else                               wa = '62' + phoneStr;
 
   const msg =
-    '✅ *QR Code Worship Night 2026*\n\n' +
+    '✅ *QR Code Malam Pujian bersama Rm Eko 2026*\n\n' +
     '🪪 *ID Peserta:* `' + id + '`\n' +
     '👤 *Nama:* ' + d.nama + '\n' +
     '🎫 *Kategori:* ' + t.label + '\n' +
@@ -787,7 +801,7 @@ function shareWA(mode) {
 // ============================================================
 function resetForm() {
   ['nama','phone','phone2','kota','pd'].forEach(id => document.getElementById(id).value = '');
-  ['platinum','silver','gold','bronze'].forEach(t => document.getElementById('opt-' + t).classList.remove('selected'));
+  ['diamond','platinum','silver','gold','bronze'].forEach(t => document.getElementById('opt-' + t).classList.remove('selected'));
   /*['ranjang','kursi','tidak'].forEach(t => {
     const opt = document.getElementById('alat-' + t);
     const inp = document.getElementById('r-' + t);
