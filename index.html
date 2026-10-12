@@ -738,12 +738,12 @@ function sendReminderWA() {
   const t = TIKET[d.tiket] || TIKET.diamond;
   const msg =
     '🙏 *Konfirmasi Pembayaran Malam Pujian bersama Rm Eko 2026*\n\n' +
-    'Saya ingin menanyakan status pembayaran saya:\n\n' +
+    'Mohon bantuannya untuk mengkonfirmasi pembayaran saya:\n\n' +
     '🪪 *ID Registrasi:* `' + d.id + '`\n' +
     '👤 *Nama:* ' + d.nama + '\n' +
     '📱 *No HP:* ' + d.phone + '\n' +
     '🎫 *Kategori:* ' + t.label + ' (' + t.display + ')\n\n' +
-    'Mohon bantuannya untuk mengkonfirmasi pembayaran saya. Terima kasih 🙏';
+    'Terima kasih 🙏';
   window.open('https://wa.me/' + PANITIA_WA + '?text=' + encodeURIComponent(msg), '_blank');
 }
 
@@ -924,7 +924,7 @@ function shareWAItem(idx) {
   else if (phoneStr.startsWith('0')) wa = '62' + phoneStr.slice(1);
   else                               wa = '62' + phoneStr;
   const msg =
-    '✅ *QR Code Worship Night 2026*\n\n' +
+    '✅ *QR Code Malam Pujian bersama Rm Eko 2026*\n\n' +
     '🪪 *ID Peserta:* `' + id + '`\n' +
     '👤 *Nama:* ' + r.nama + '\n' +
     '🎫 *Kategori:* ' + t.label + '\n' +
