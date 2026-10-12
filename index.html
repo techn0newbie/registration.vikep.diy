@@ -625,7 +625,7 @@ async function loadQuota() {
 // ============================================================
 function selectTicket(type) {
   selectedTicket = type;
-  ['platinum','gold','silver','bronze'].forEach(t => {
+  ['diamond','platinum','gold','silver','bronze'].forEach(t => {
     const opt = document.getElementById('opt-' + t);
     if (opt) opt.classList.toggle('selected', t === type);
   });
