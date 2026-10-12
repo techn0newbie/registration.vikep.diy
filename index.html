@@ -701,7 +701,7 @@ async function submitForm() {
 //  SHOW PAYMENT CARD
 // ============================================================
 function showPaymentCard(data) {
-  const t = TIKET[(data.tiket || '').toString().trim().toLowerCase()] || TIKET.platinum;
+  const t = TIKET[(data.tiket || '').toString().trim().toLowerCase()] || TIKET.diamond;
   document.getElementById('pay-reg-id').textContent  = data.id;
   document.getElementById('pay-nominal').textContent = t.display;
   document.getElementById('pay-tiket').textContent   = 'Kategori: ' + t.label;
@@ -715,7 +715,7 @@ function showPaymentCard(data) {
 function sendPaymentWA() {
   if (!registeredData) return;
   const d = registeredData;
-  const t = TIKET[d.tiket] || TIKET.platinum;
+  const t = TIKET[d.tiket] || TIKET.diamond;
   const msg =
     '🙏 *Bukti Pembayaran Malam Pujian bersama Rm Eko 2026*\n\n' +
     '🪪 *ID Registrasi:* `' + d.id + '`\n' +
@@ -735,7 +735,7 @@ function sendPaymentWA() {
 function sendReminderWA() {
   if (!lookupData) return;
   const d = lookupData;
-  const t = TIKET[d.tiket] || TIKET.platinum;
+  const t = TIKET[d.tiket] || TIKET.diamond;
   const msg =
     '🙏 *Konfirmasi Pembayaran Malam Pujian bersama Rm Eko 2026*\n\n' +
     'Saya ingin menanyakan status pembayaran saya:\n\n' +
@@ -753,7 +753,7 @@ function sendReminderWA() {
 function renderQR(elId, data) {
   document.getElementById(elId).innerHTML = '';
   new QRCode(document.getElementById(elId), {
-    text: data.id + '|' + data.nama + '|' + data.phone + '|' + (data.tiket || 'platinum'),
+    text: data.id + '|' + data.nama + '|' + data.phone + '|' + (data.tiket || 'diamond'),
     width: 210, height: 210,
     colorDark: '#085041', colorLight: '#ffffff',
     correctLevel: QRCode.CorrectLevel.H
@@ -761,9 +761,9 @@ function renderQR(elId, data) {
 }
 
 function ticketBadgeHTML(tiket) {
-  const cls = { platinum: 'badge-platinum', gold: 'badge-gold', silver: 'badge-silver', bronze: 'badge-bronze', diamond: 'badge-diamond' };
+  const cls = { diamond: 'badge-diamond', platinum: 'badge-platinum', gold: 'badge-gold', silver: 'badge-silver', bronze: 'badge-bronze' };
   const lbl = { diamond: 'Diamond', platinum: 'Platinum', gold: 'Gold', silver: 'Silver', bronze: 'Bronze' };
-  return '<span class="ticket-badge ' + (cls[tiket]||'badge-platinum') + '">' + (lbl[tiket]||tiket) + '</span>';
+  return '<span class="ticket-badge ' + (cls[tiket]||'badge-diamond') + '">' + (lbl[tiket]||tiket) + '</span>';
 }
 
 // ============================================================
@@ -773,7 +773,7 @@ function shareWA(mode) {
   const d = mode === 'reg' ? registeredData : lookupData;
   if (!d) return;
   const tiketClean = (d.tiket || '').toString().trim().toLowerCase();
-  const t = TIKET[tiketClean] || TIKET.platinum;
+  const t = TIKET[tiketClean] || TIKET.diamond;
   const id = String(d.id);
 
   const phoneStr = String(d.phone).replace(/\D/g, '');
@@ -846,7 +846,7 @@ async function doLookup() {
 
       results.forEach((r, idx) => {
         const isLunas = String(r.payment).trim().toLowerCase() === 'lunas';
-        const t = TIKET[r.tiket] || TIKET.platinum;
+        const t = TIKET[r.tiket] || TIKET.diamond;
 
         const card = document.createElement('div');
         card.style.cssText = 'background:white;border:2px solid ' + (isLunas ? 'var(--green)' : 'var(--amber)') + ';border-radius:14px;overflow:hidden;margin-bottom:1rem;';
@@ -859,7 +859,7 @@ async function doLookup() {
           '</div>' +
           '<div style="padding:1.1rem;text-align:center">' +
             '<div style="font-family:monospace;font-size:1.2rem;font-weight:800;color:' + (isLunas ? 'var(--green)' : 'var(--amber)') + ';letter-spacing:2px;margin-bottom:0.5rem">' + r.id + '</div>' +
-            ticketBadgeHTML(r.tiket || 'platinum') +
+            ticketBadgeHTML(r.tiket || 'diamond') +
             '<div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.4rem;margin-bottom:0.9rem">' +
               r.phone + (r.kota ? '  •  ' + r.kota : '') + (r.pd ? '  •  ' + r.pd : '') +
             '</div>' +
@@ -888,7 +888,7 @@ async function doLookup() {
             const qrEl = document.getElementById('qrcode-lookup-' + idx);
             if (qrEl) {
               new QRCode(qrEl, {
-                text: r.id + '|' + r.nama + '|' + r.phone + '|' + (r.tiket || 'platinum'),
+                text: r.id + '|' + r.nama + '|' + r.phone + '|' + (r.tiket || 'diamond'),
                 width: 200, height: 200,
                 colorDark: '#085041', colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.H
@@ -916,7 +916,7 @@ function shareWAItem(idx) {
   if (!results || !results[parseInt(idx)]) return;
   const r = results[parseInt(idx)];
   const tiketClean = (r.tiket || '').toString().trim().toLowerCase();
-  const t = TIKET[tiketClean] || TIKET.platinum;
+  const t = TIKET[tiketClean] || TIKET.diamond;
   const id = String(r.id);
   const phoneStr = String(r.phone).replace(/\D/g, '');
   let wa;
@@ -964,7 +964,7 @@ async function verifyPayment() {
       lastVerifiedData = data;
       div.innerHTML =
         '<div class="v-name">✅ ' + data.nama + ' — Pembayaran Dikonfirmasi</div>' +
-        '<div class="v-detail">' + data.id + '  •  ' + (TIKET[data.tiket]||TIKET.platinum).display + '  •  ' + data.verified_time + '</div>' +
+        '<div class="v-detail">' + data.id + '  •  ' + (TIKET[data.tiket]||TIKET.diamond).display + '  •  ' + data.verified_time + '</div>' +
         '<div class="v-detail" style="margin-top:0.4rem">Link WA siap dikirim ke peserta ↓</div>' +
         '<button class="wa-btn" id="send-verified-wa-btn" onclick="sendVerifiedWA();" style="margin-top:0.6rem;width:100%;justify-content:center">' +
         '📲 Kirim Notifikasi ke Peserta</button>';
@@ -988,7 +988,7 @@ function sendVerifiedWA() {
     alert('Data peserta tidak ditemukan. Silakan verifikasi ulang.');
     return;
   }
-  const t = TIKET[(data.tiket || '').toString().trim().toLowerCase()] || TIKET.platinum;
+  const t = TIKET[(data.tiket || '').toString().trim().toLowerCase()] || TIKET.diamond;
 
   // phone may come as number from Apps Script — convert to string first
   const phoneStr = String(data.phone).replace(/\D/g, '');
